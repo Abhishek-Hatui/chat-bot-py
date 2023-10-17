@@ -25,7 +25,7 @@ def find_best_match(user_question: str, questions: List[str]) -> Union[str, None
     return matches[0] if matches else None
 
 
-def get_answer_for_question(question:str, knowledge_base:dict) -> str|None:
+def get_answer_for_question(question: str, knowledge_base: dict) -> Union[str, None]:
     for q in knowledge_base["questions"]:
         if preprocess_text(q["question"]) == question:
             return q["answer"]
