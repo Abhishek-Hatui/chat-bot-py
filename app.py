@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, jsonify
 import re
 import requests
 from bs4 import BeautifulSoup
-from typing import List
+from typing import List, Union
 
 app = Flask(__name__)
 
@@ -18,10 +18,10 @@ def preprocess_text(text):
     text = re.sub(r'[^\w\s]', '', text.lower())
     return text
 
-def find_best_match(user_question:str, questions:List[str]) -> str|None:
+def find_best_match(user_question: str, questions: List[str]) -> Union[str, None]:
     user_question = preprocess_text(user_question)
     questions = [preprocess_text(q) for q in questions]
-    matches: list = get_close_matches(user_question, questions, n=1, cutoff=0.8)
+    matches = get_close_matches(user_question, questions, n=1, cutoff=0.8)
     return matches[0] if matches else None
 
 
